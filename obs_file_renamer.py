@@ -4,8 +4,12 @@ import win32gui
 import win32process
 import psutil
 import shutil
+from dotenv import load_dotenv
 
-OBS_FOLDER = "E:\Bibliotheken\Videos\OBS Replay Buffer"
+# Load environment variables from .env file
+load_dotenv()
+
+OBS_FOLDER = os.getenv("OBS_FOLDER")
 SECONDS_THRESHOLD = 10  # Only rename files created in the last 10 seconds
 
 def get_active_window_process_name():
