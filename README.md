@@ -21,6 +21,7 @@ First, adjust the OBS_FOLDER and SECONDS_THRESHOLD variables in the script to ma
 
 - `OBS_FOLDER should be the path to the folder where OBS saves its output files.`
 - `SECONDS_THRESHOLD is the number of seconds within which a file should have been created in order to be renamed. This prevents the script from renaming older files.`
+
 To run the script, simply execute it with Python:
 
 ````bash
