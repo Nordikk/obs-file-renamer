@@ -2,7 +2,7 @@
 
 This Python script monitors a specified folder for new video files (like those created by OBS Replay Buffer) and renames the latest file to include the name of the currently active window's process. This is useful for situations where you are recording gameplay from different games and want the output files to be automatically named according to the game that was being recorded.
 
-## 🚀 Simple Usage
+# 🚀 Simple Usage
 
 1. Download the latest release from the [Releases](https://github.com/Nordikk/obs-file-renamer/releases)
 
