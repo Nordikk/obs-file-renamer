@@ -5,8 +5,8 @@ import win32process
 import psutil
 import shutil
 
-OBS_FOLDER = "path_to_your_OBS_folder"
-SECONDS_THRESHOLD = 5  # Only rename files created in the last 10 seconds
+OBS_FOLDER = "E:\Bibliotheken\Videos\OBS Replay Buffer"
+SECONDS_THRESHOLD = 10  # Only rename files created in the last 10 seconds
 
 def get_active_window_process_name():
     """Get the name of the process for the active window."""
@@ -19,6 +19,7 @@ def get_active_window_process_name():
 
 def rename_files():
     """Monitor the OBS folder and rename the latest file."""
+    last_renamed_file = None
     while True:
         time.sleep(1)  # Wait for a second
 
@@ -30,6 +31,10 @@ def rename_files():
         # Get the latest file
         latest_file = max(files, key=lambda f: os.path.getctime(os.path.join(OBS_FOLDER, f)))
 
+        # If the latest file is the same as the last one we renamed, skip it
+        if latest_file == last_renamed_file:
+            continue
+
         # Check if the latest file was created in the last SECONDS_THRESHOLD seconds
         creation_time = os.path.getctime(os.path.join(OBS_FOLDER, latest_file))
         if time.time() - creation_time > SECONDS_THRESHOLD:
@@ -38,8 +43,16 @@ def rename_files():
         # Get the name of the active window's process
         process_name = get_active_window_process_name()
         if process_name:
+            # Create a new folder with the process name, if it doesn't exist
+            new_folder = os.path.join(OBS_FOLDER, process_name)
+            os.makedirs(new_folder, exist_ok=True)
+
+            # Move and rename the file
             new_name = f"{process_name}_{latest_file}"
-            shutil.move(os.path.join(OBS_FOLDER, latest_file), os.path.join(OBS_FOLDER, new_name))
+            shutil.move(os.path.join(OBS_FOLDER, latest_file), os.path.join(new_folder, new_name))
+
+        # Update the last renamed file
+        last_renamed_file = new_name
 
 if __name__ == "__main__":
     rename_files()
