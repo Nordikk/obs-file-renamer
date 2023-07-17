@@ -19,6 +19,7 @@ def get_active_window_process_name():
 
 def rename_files():
     """Monitor the OBS folder and rename the latest file."""
+    print(f"Monitoring OBS folder at {OBS_FOLDER}...")
     last_renamed_file = None
     while True:
         time.sleep(1)  # Wait for a second
@@ -50,6 +51,9 @@ def rename_files():
             # Move and rename the file
             new_name = f"{process_name}_{latest_file}"
             shutil.move(os.path.join(OBS_FOLDER, latest_file), os.path.join(new_folder, new_name))
+
+            # Print a message indicating that a file was renamed and moved
+            print(f"Renamed and moved {latest_file} to {os.path.join(new_folder, new_name)}")
 
         # Update the last renamed file
         last_renamed_file = new_name
