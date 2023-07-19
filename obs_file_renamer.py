@@ -11,6 +11,7 @@ load_dotenv()
 
 OBS_FOLDER = os.getenv("OBS_FOLDER")
 SECONDS_THRESHOLD = 10  # Only rename files created in the last 10 seconds
+WAIT_TIME = 5  # Wait for 5 seconds before renaming and moving the file
 
 def get_active_window_process_name():
     """Get the name of the process for the active window."""
@@ -51,6 +52,9 @@ def rename_files():
             # Create a new folder with the process name, if it doesn't exist
             new_folder = os.path.join(OBS_FOLDER, process_name)
             os.makedirs(new_folder, exist_ok=True)
+
+            # Wait for a bit before renaming and moving the file
+            time.sleep(WAIT_TIME)
 
             # Move and rename the file
             new_name = f"{process_name}_{latest_file}"
