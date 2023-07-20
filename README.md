@@ -6,7 +6,7 @@ This Python script monitors a specified folder for new video files (like those c
 
 1. Download the latest release from the [Releases](https://github.com/Nordikk/obs-file-renamer/releases)
 
-2. Create a .env file in the same directory as your script with the following content:
+2. Create a .env file in the same directory as the .exe with the following content:
 
 ```bash
 OBS_FOLDER=path_to_your_OBS_folder
